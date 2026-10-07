@@ -41,3 +41,19 @@ Implementation Plan
 ## Tracciabilità
 
 FR → FLOW → ENT → API → UI → EPIC → TASK → ADR
+
+## AI Context Engineering
+
+Il framework include un layer dedicato ai sistemi AI.
+
+Documenti:
+
+- PROJECT-BOOTSTRAP
+- AI-SYSTEM-CONTEXT
+- AI-DEVELOPMENT-WORKFLOW
+- AI-CODE-GENERATION-RULES
+- PROMPT-TEMPLATES
+- AI-REVIEW-CHECKLIST
+- PROJECT-SNAPSHOT
+
+Questi documenti consentono ad un sistema AI di comprendere rapidamente il progetto mantenendo coerenza e tracciabilità.
