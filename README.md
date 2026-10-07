@@ -26,7 +26,8 @@ No AI Generation Before Traceability.
 
 PRD
 ↓
-Application Flows
+
+Application Flow
 ↓
 Design System
 ↓
