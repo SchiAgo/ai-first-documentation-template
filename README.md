@@ -26,8 +26,7 @@ No AI Generation Before Traceability.
 
 PRD
 ↓
-
-Application Flow
+Application Flows
 ↓
 Design System
 ↓
@@ -41,4 +40,4 @@ Implementation Plan
 
 ## Tracciabilità
 
-FR → FLOW → ENT → API → UI → EPIC → TASK → A
+FR → FLOW → ENT → API → UI → EPIC → TASK → ADR
