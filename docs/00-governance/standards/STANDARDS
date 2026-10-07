@@ -1,0 +1,65 @@
+# Standards
+
+## Sistema Identificativi
+
+### Requisiti Funzionali
+
+FR-001
+FR-002
+FR-003
+
+---
+
+### Requisiti Non Funzionali
+
+NFR-001
+NFR-002
+
+---
+
+### Flow
+
+FLOW-001
+FLOW-002
+
+---
+
+### Entità
+
+ENT-001
+ENT-002
+
+---
+
+### API
+
+API-001
+API-002
+
+---
+
+### Componenti UI
+
+UI-001
+UI-002
+
+---
+
+### Epic
+
+EPIC-001
+EPIC-002
+
+---
+
+### Task
+
+TASK-001
+TASK-002
+
+---
+
+### ADR
+
+ADR-001
+ADR-002
