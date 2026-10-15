@@ -1,21 +1,51 @@
 # ADR-XXX
 
+## Informazioni Generali
+
 Titolo:
+
+Versione:
+
+Data:
+
+Autore:
 
 Stato:
 
-- Proposto
-- Accettato
-- Rifiutato
-- Deprecato
+- PROPOSED
+- APPROVED
+- REJECTED
+- DEPRECATED
 
 ---
 
 ## Contesto
 
+Descrizione del contesto.
+
 ---
 
 ## Problema
+
+Problema da risolvere.
+
+---
+
+## Requisiti Coinvolti
+
+FR-XXX
+
+---
+
+## Documenti Coinvolti
+
+TRD
+
+Application Flows
+
+Data Architecture
+
+Implementation Plan
 
 ---
 
@@ -23,38 +53,80 @@ Stato:
 
 ### Opzione A
 
+Descrizione:
+
 Pro:
 
 Contro:
+
+Rischi:
+
+---
 
 ### Opzione B
 
+Descrizione:
+
 Pro:
 
 Contro:
+
+Rischi:
+
+---
+
+## Trade-Off Accettati
+
+Descrizione:
 
 ---
 
 ## Decisione
 
+Decisione finale adottata.
+
 ---
 
 ## Motivazione
+
+Motivazione dettagliata.
 
 ---
 
 ## Conseguenze Positive
 
+- elemento 1
+- elemento 2
+
 ---
 
 ## Conseguenze Negative
 
+- elemento 1
+- elemento 2
+
 ---
 
-## Documenti Impattati
+## Strategia di Rollback
 
-TRD
+Condizioni:
 
-Data Architecture
+Passaggi:
 
-Implementation Plan
+Impatto:
+
+---
+
+## ADR Correlate
+
+ADR-XXX
+
+ADR-YYY
+
+---
+
+## Change History
+
+| Versione | Data       | Autore | Descrizione   |
+| -------- | ---------- | ------ | ------------- |
+| 1.0.0    | YYYY-MM-DD | Nome   | Creazione ADR |
