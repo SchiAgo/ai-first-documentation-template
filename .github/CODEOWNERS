@@ -1,0 +1,19 @@
+# Governance
+
+/docs/00-governance/* @SchiAgo
+
+# Requirements
+
+/docs/01-prd/* @SchiAgo
+
+# Architecture
+
+/docs/02-trd/* @SchiAgo
+
+# Data
+
+/docs/05-data-architecture/* @SchiAgo
+
+# ADR
+
+/docs/07-adr/* @SchiAgo

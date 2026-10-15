@@ -57,3 +57,28 @@ Documenti:
 - PROJECT-SNAPSHOT
 
 Questi documenti consentono ad un sistema AI di comprendere rapidamente il progetto mantenendo coerenza e tracciabilità.
+
+## Quality Gates
+
+Il framework include validazioni automatiche:
+
+- struttura documentale
+- identificativi
+- ADR
+- matrice di tracciabilità
+
+Le validazioni vengono eseguite automaticamente tramite GitHub Actions.
+
+## Governance
+
+La governance del framework è definita in:
+
+docs/00-governance
+
+Include:
+
+- ownership
+- naming conventions
+- lifecycle management
+- traceability
+- AI collaboration rules

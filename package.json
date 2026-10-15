@@ -1,0 +1,30 @@
+{
+  "name": "@template/ai-first-documentation-template",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Framework documentale professionale per:",
+  "main": "index.js",
+  "directories": {
+    "doc": "docs",
+    "example": "examples"
+  },
+  "scripts": {
+    "validate:docs": "node scripts/validate-docs.js",
+    "validate:ids": "node scripts/validate-ids.js",
+    "validate:adr": "node scripts/validate-adr.js",
+    "validate:traceability": "node scripts/validate-traceability.js",
+    "validate": "npm run validate:docs && npm run validate:ids && npm run validate:adr && npm run validate:traceability"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SchiAgo/ai-first-documentation-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/SchiAgo/ai-first-documentation-template/issues"
+  },
+  "homepage": "https://github.com/SchiAgo/ai-first-documentation-template#readme"
+}

@@ -63,3 +63,41 @@ TASK-002
 
 ADR-001
 ADR-002
+
+---
+
+## Stato Elementi
+
+Allowed values:
+
+PROPOSED
+
+APPROVED
+
+IN_PROGRESS
+
+COMPLETED
+
+DEPRECATED
+
+## REJECTED
+
+## Priorità
+
+CRITICAL
+
+HIGH
+
+MEDIUM
+
+LOW
+
+---
+
+## Risk Level
+
+HIGH
+
+MEDIUM
+
+LOW
