@@ -1,4 +1,4 @@
-# Tipo Modifica
+## Tipo Modifica
 
 - [ ] Requisito
 - [ ] Architettura
@@ -10,20 +10,20 @@
 
 ---
 
-# Documenti Modificati
+## Documenti Modificati
 
 Elencare i documenti aggiornati.
 
 ---
 
-# Tracciabilità
+## Tracciabilità
 
 - [ ] Aggiornata
 - [ ] Non necessaria
 
 ---
 
-# Checklist
+## Checklist
 
 - [ ] ID coerenti
 - [ ] Nessun elemento orfano
@@ -32,6 +32,6 @@ Elencare i documenti aggiornati.
 
 ---
 
-# Note
+## Note
 
 Inserire eventuali informazioni aggiuntive.

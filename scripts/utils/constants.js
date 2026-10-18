@@ -8,14 +8,16 @@ module.exports = {
         "docs/06-implementation-plan/IMPLEMENTATION-PLAN.md"
     ],
 
-    ID_PATTERNS: {
-        FR: /FR-\\d{3}/g,
-        FLOW: /FLOW-\\d{3}/g,
-        ENT: /ENT-\\d{3}/g,
-        API: /API-\\d{3}/g,
-        UI: /UI-\\d{3}/g,
-        EPIC: /EPIC-\\d{3}/g,
-        TASK: /TASK-\\d{3}/g,
-        ADR: /ADR-\\d{3}/g
-    }
+    ID_TYPES: [
+        "NFR",
+        "FLOW",
+        "EPIC",
+        "TASK",
+        "FR",
+        "ENT",
+        "API",
+        "UI",
+        "ADR"
+    ],
+    ID_PLACEHOLDERS: ["ID", "XXX", "YYY"]
 };

@@ -374,13 +374,9 @@ Mitigazione:
 
 ## Glossario Dominio
 
-### Termine
+Template:
 
-Definizione:
-
----
-
-### Termine
+Nome:
 
 Definizione:
 

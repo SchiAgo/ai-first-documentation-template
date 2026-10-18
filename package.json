@@ -9,11 +9,13 @@
     "example": "examples"
   },
   "scripts": {
+    "validate:markdown": "node scripts/validate-markdown.js",
     "validate:docs": "node scripts/validate-docs.js",
     "validate:ids": "node scripts/validate-ids.js",
+    "test:validate-ids": "node --test scripts/validate-ids.test.js",
     "validate:adr": "node scripts/validate-adr.js",
     "validate:traceability": "node scripts/validate-traceability.js",
-    "validate": "npm run validate:docs && npm run validate:ids && npm run validate:adr && npm run validate:traceability"
+    "validate": "npm run validate:docs && npm run validate:markdown && npm run validate:ids && npm run validate:adr && npm run validate:traceability"
   },
   "repository": {
     "type": "git",

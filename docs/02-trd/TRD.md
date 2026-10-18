@@ -1,6 +1,6 @@
 # TRD - Technical Requirements Document
 
-### Informazioni Documento
+## Informazioni Documento
 
 Nome Progetto:
 
@@ -14,7 +14,7 @@ Stato:
 
 ---
 
-### Cronologia Modifiche
+## Cronologia Modifiche
 
 | Versione | Data       | Autore | Descrizione         |
 | -------- | ---------- | ------ | ------------------- |
@@ -22,7 +22,7 @@ Stato:
 
 ---
 
-### Executive Summary
+## Executive Summary
 
 Scopo Sistema:
 

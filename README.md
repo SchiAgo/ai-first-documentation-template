@@ -46,15 +46,20 @@ FR → FLOW → ENT → API → UI → EPIC → TASK → ADR
 
 Il framework include un layer dedicato ai sistemi AI.
 
-Documenti:
+Documenti disponibili:
 
-- PROJECT-BOOTSTRAP
-- AI-SYSTEM-CONTEXT
-- AI-DEVELOPMENT-WORKFLOW
-- AI-CODE-GENERATION-RULES
-- PROMPT-TEMPLATES
-- AI-REVIEW-CHECKLIST
-- PROJECT-SNAPSHOT
+- PROJECT-BOOTSTRAP.md
+- AI-SYSTEM-CONTEXT.md
+- AI-DEVELOPMENT-WORKFLOW.md
+- AI-CODE-GENERATION-RULES.md
+- PROMPT-TEMPLATES.md
+- AI-ROLE-PROMPTS.md
+- AI-REVIEW-CHECKLIST.md
+- PROJECT-SNAPSHOT.md
+
+PROMPT-TEMPLATES contiene prompt orientati alle attività.
+
+AI-ROLE-PROMPTS contiene prompt orientati ai ruoli professionali.
 
 Questi documenti consentono ad un sistema AI di comprendere rapidamente il progetto mantenendo coerenza e tracciabilità.
 

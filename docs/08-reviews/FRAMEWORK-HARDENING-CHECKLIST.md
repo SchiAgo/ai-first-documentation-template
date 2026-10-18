@@ -2,32 +2,36 @@
 
 ## Governance
 
-- [ ] Governance Index creato
-- [ ] Naming Convention documentata
-- [ ] Document Ownership documentata
-- [ ] ID Lifecycle documentato
+- [x] Governance Index creato
+- [x] Naming Convention documentata
+- [x] Document Ownership documentata
+- [x] ID Lifecycle documentato
 
 ---
 
 ## Template
 
-- [ ] PRD esteso
-- [ ] TRD esteso
-- [ ] Application Flows esteso
-- [ ] Data Architecture esteso
-- [ ] Implementation Plan esteso
-- [ ] ADR esteso
+- [x] PRD esteso
+- [x] TRD esteso
+- [x] Application Flows esteso
+- [x] Data Architecture esteso
+- [x] Implementation Plan esteso
+- [x] ADR esteso
 
 ---
 
 ## AI Context
 
-- [ ] Prompt Refactoring
-- [ ] Prompt Architecture Review
-- [ ] Prompt Database Design
-- [ ] Prompt ADR Generation
-- [ ] Prompt Migration Review
-- [ ] Prompt Test Generation
+- [x] Prompt Refactoring
+- [x] Prompt Architecture Review
+- [x] Prompt Database Design
+- [x] Prompt ADR Generation
+- [x] Prompt Migration Analysis
+- [x] Prompt Security Review
+- [x] Prompt Test Generation
+- [x] Prompt Architecture Consistency Check
+- [x] Prompt Reverse Engineering
+- [x] AI Role Prompts
 
 ---
 
