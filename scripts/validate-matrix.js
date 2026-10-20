@@ -2,11 +2,10 @@ const fs = require("fs");
 const path = require("path");
 
 const {
+    DEFINITION_FILES,
+    getDefinitionFiles,
     extractDefinitions
 } = require("./validate-ids");
-const {
-    getMarkdownFiles
-} = require("./utils/file-utils");
 
 const MATRIX_FILE = path.join(
     "docs",
@@ -16,17 +15,6 @@ const MATRIX_FILE = path.join(
 const COLUMNS = ["FR", "FLOW", "ENT", "API", "UI", "EPIC", "TASK", "ADR"];
 const REQUIRED_COLUMNS = new Set(COLUMNS.filter(column => column !== "ADR"));
 const PLACEHOLDER_SUFFIXES = new Set(["ID", "XXX", "YYY", "NNN"]);
-const DEFINITION_FILES = {
-    FR: ["docs/01-prd/PRD.md"],
-    FLOW: ["docs/03-application-flows/APPLICATION-FLOWS.md"],
-    ENT: ["docs/05-data-architecture/DATA-ARCHITECTURE.md"],
-    API: ["docs/02-trd/TRD.md"],
-    UI: ["docs/04-design-system/DESIGN-SYSTEM.md"],
-    EPIC: ["docs/06-implementation-plan/IMPLEMENTATION-PLAN.md"],
-    TASK: ["docs/06-implementation-plan/IMPLEMENTATION-PLAN.md"],
-    ADR: ["docs/07-adr"]
-};
-
 function parseTableCells(line) {
     const trimmed = line.trim();
 
@@ -47,10 +35,41 @@ function isSeparatorRow(cells) {
 }
 
 function findMatrixTable(content) {
-    const lines = content.split(/\r?\n/);
+    const lines = [];
+    let fenceCharacter = null;
+    let fenceLength = 0;
+
+    for (const line of content.split(/\r?\n/)) {
+        const fence = line.match(/^\s{0,3}(`{3,}|~{3,})/);
+
+        if (fence) {
+            const marker = fence[1];
+
+            if (fenceCharacter === null) {
+                fenceCharacter = marker[0];
+                fenceLength = marker.length;
+            } else if (
+                marker[0] === fenceCharacter &&
+                marker.length >= fenceLength
+            ) {
+                fenceCharacter = null;
+                fenceLength = 0;
+            }
+
+            lines.push(null);
+            continue;
+        }
+
+        lines.push(fenceCharacter === null ? line : null);
+    }
+
     const matchingTables = [];
 
     for (let index = 0; index < lines.length - 1; index += 1) {
+        if (lines[index] === null || lines[index + 1] === null) {
+            continue;
+        }
+
         const header = parseTableCells(lines[index]);
         const separator = parseTableCells(lines[index + 1]);
 
@@ -112,6 +131,10 @@ function findMatrixTable(content) {
     let rowIndex = candidate.separatorLine;
 
     while (rowIndex < lines.length) {
+        if (lines[rowIndex] === null) {
+            break;
+        }
+
         const cells = parseTableCells(lines[rowIndex]);
 
         if (!cells) {
@@ -146,20 +169,7 @@ function loadDefinitions(rootDirectory) {
     const definitions = new Map(COLUMNS.map(column => [column, new Set()]));
 
     for (const [column, relativePaths] of Object.entries(DEFINITION_FILES)) {
-        const files = relativePaths.flatMap(relativePath => {
-            const absolutePath = path.join(rootDirectory, relativePath);
-
-            if (!fs.existsSync(absolutePath)) {
-                return [];
-            }
-
-            if (fs.statSync(absolutePath).isDirectory()) {
-                return getMarkdownFiles(absolutePath)
-                    .filter(file => path.basename(file) !== "ADR-TEMPLATE.md");
-            }
-
-            return [absolutePath];
-        });
+        const files = getDefinitionFiles(rootDirectory, relativePaths);
 
         for (const file of files) {
             const content = fs.readFileSync(file, "utf8");

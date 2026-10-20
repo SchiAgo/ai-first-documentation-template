@@ -9,6 +9,7 @@
     "example": "examples"
   },
   "scripts": {
+    "test": "node --test",
     "validate:markdown": "node scripts/validate-markdown.js",
     "validate:docs": "node scripts/validate-docs.js",
     "validate:ids": "node scripts/validate-ids.js",
@@ -17,7 +18,9 @@
     "test:validate-adr": "node --test scripts/validate-adr.test.js",
     "validate:matrix": "node scripts/validate-matrix.js",
     "test:validate-matrix": "node --test scripts/validate-matrix.test.js",
-    "validate": "npm run validate:docs && npm run validate:markdown && npm run validate:ids && npm run validate:adr && npm run validate:matrix"
+    "validate:orphans": "node scripts/validate-orphans.js",
+    "test:validate-orphans": "node --test scripts/validate-orphans.test.js",
+    "validate": "npm run validate:docs && npm run validate:markdown && npm run validate:ids && npm run validate:adr && npm run validate:matrix && npm run validate:orphans"
   },
   "repository": {
     "type": "git",

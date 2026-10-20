@@ -162,6 +162,26 @@ function getDefinitionFiles(rootDirectory, relativePaths) {
     });
 }
 
+function loadDefinitions(rootDirectory, idTypes = Object.keys(DEFINITION_FILES)) {
+    const files = new Set();
+
+    for (const idType of idTypes) {
+        const relativePaths = DEFINITION_FILES[idType] || [];
+
+        for (const file of getDefinitionFiles(rootDirectory, relativePaths)) {
+            files.add(file);
+        }
+    }
+
+    return [...files].flatMap(file => {
+        const content = fs.readFileSync(file, "utf8");
+        return extractDefinitions(
+            content,
+            path.relative(rootDirectory, file)
+        );
+    });
+}
+
 function runValidation() {
     const rootDirectory = path.resolve(__dirname, "..");
     const markdownFiles = getMarkdownFiles(
@@ -175,7 +195,6 @@ function runValidation() {
         formattingIssues.push(...findInvalidIds(content, relativeFile));
     }
 
-    const definitionFiles = new Set();
     for (const [idType, relativePaths] of Object.entries(DEFINITION_FILES)) {
         if (
             relativePaths.every(relativePath =>
@@ -190,19 +209,9 @@ function runValidation() {
             });
         }
 
-        for (const file of getDefinitionFiles(rootDirectory, relativePaths)) {
-            definitionFiles.add(file);
-        }
     }
 
-    const definitions = [];
-
-    for (const file of definitionFiles) {
-        const content = fs.readFileSync(file, "utf8");
-        const relativeFile = path.relative(rootDirectory, file);
-        definitions.push(...extractDefinitions(content, relativeFile));
-    }
-
+    const definitions = loadDefinitions(rootDirectory);
     const duplicateDefinitions = findDuplicateDefinitions(definitions);
 
     for (const issue of formattingIssues) {
@@ -239,5 +248,8 @@ module.exports = {
     extractDefinitions,
     findDuplicateDefinitions,
     findInvalidIds,
-    getContentLines
+    getContentLines,
+    getDefinitionFiles,
+    loadDefinitions,
+    DEFINITION_FILES
 };

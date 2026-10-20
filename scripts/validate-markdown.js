@@ -1,8 +1,6 @@
 const fs = require("fs");
+const path = require("path");
 
-/**
- * Documenti obbligatori e sezioni minime richieste.
- */
 const requiredSections = {
     "docs/01-prd/PRD.md": [
         "Informazioni Documento",
@@ -10,28 +8,24 @@ const requiredSections = {
         "Requisiti Funzionali",
         "Requisiti Non Funzionali"
     ],
-
     "docs/02-trd/TRD.md": [
         "Architettura Generale",
         "Stack Tecnologico",
         "Architettura Backend",
         "Architettura Frontend"
     ],
-
     "docs/03-application-flows/APPLICATION-FLOWS.md": [
         "Informazioni Documento",
         "FLOW-001",
         "Navigation Flow",
         "User Flow"
     ],
-
     "docs/05-data-architecture/DATA-ARCHITECTURE.md": [
         "Informazioni Documento",
         "Storage Architecture",
         "Data Domains",
         "Data Lifecycle"
     ],
-
     "docs/06-implementation-plan/IMPLEMENTATION-PLAN.md": [
         "Informazioni Documento",
         "Strategia Implementativa",
@@ -40,210 +34,145 @@ const requiredSections = {
     ]
 };
 
-/**
- * Estrae tutti gli heading markdown.
- */
 function extractHeadings(content) {
     const headings = [];
+    let fenceCharacter = null;
+    let fenceLength = 0;
 
-    const lines = content.split(/\r?\n/);
+    for (const [index, line] of content.split(/\r?\n/).entries()) {
+        const fence = line.match(/^\s{0,3}(`{3,}|~{3,})/);
 
-    lines.forEach((line, index) => {
-        const match = line.match(/^(#{1,6})\s+(.*)$/);
+        if (fence) {
+            const marker = fence[1];
+
+            if (fenceCharacter === null) {
+                fenceCharacter = marker[0];
+                fenceLength = marker.length;
+            } else if (
+                marker[0] === fenceCharacter &&
+                marker.length >= fenceLength
+            ) {
+                fenceCharacter = null;
+                fenceLength = 0;
+            }
+
+            continue;
+        }
+
+        if (fenceCharacter !== null) {
+            continue;
+        }
+
+        const match = line.match(/^\s{0,3}(#{1,6})(?:\s+(.*)|\s*)$/);
 
         if (match) {
             headings.push({
                 level: match[1].length,
-                title: match[2].trim(),
+                title: (match[2] || "").replace(/\s+#+\s*$/, "").trim(),
                 line: index + 1
             });
         }
-    });
+    }
 
     return headings;
 }
 
-/**
- * Verifica che le sezioni obbligatorie siano presenti.
- */
-function validateRequiredSections(content, file, sections) {
-    let hasErrors = false;
+function validateMarkdownFile(filePath, relativePath, required = []) {
+    const errors = [];
 
-    for (const section of sections) {
-        if (!content.includes(section)) {
-            console.error(
-                `❌ ${file} -> sezione obbligatoria mancante: "${section}"`
-            );
-
-            hasErrors = true;
-        }
+    if (!fs.existsSync(filePath)) {
+        return [`❌ File mancante: ${relativePath}`];
     }
 
-    return hasErrors;
-}
+    const content = fs.readFileSync(filePath, "utf8");
 
-/**
- * Verifica heading vuoti.
- */
-function validateEmptyHeadings(headings, file) {
-    let hasErrors = false;
+    if (!content.trim()) {
+        return [`❌ File vuoto: ${relativePath}`];
+    }
+
+    const headings = extractHeadings(content);
+
+    if (headings.length === 0) {
+        errors.push(`❌ ${relativePath} -> nessun heading markdown trovato`);
+    }
+
+    for (const section of required) {
+        const hasSection = headings.some(heading =>
+            heading.title === section ||
+            heading.title.startsWith(`${section} `)
+        );
+
+        if (!hasSection) {
+            errors.push(
+                `❌ ${relativePath} -> sezione obbligatoria mancante: "${section}"`
+            );
+        }
+    }
 
     for (const heading of headings) {
-        if (heading.title.length === 0) {
-            console.error(
-                `❌ ${file} -> heading vuoto alla linea ${heading.line}`
+        if (!heading.title) {
+            errors.push(
+                `❌ ${relativePath} -> heading vuoto alla linea ${heading.line}`
             );
-
-            hasErrors = true;
         }
     }
 
-    return hasErrors;
-}
+    for (let index = 1; index < headings.length; index += 1) {
+        const previous = headings[index - 1];
+        const current = headings[index];
 
-/**
- * Verifica salti gerarchici.
- *
- * Valido:
- * # -> ##
- * ## -> ###
- *
- * Non valido:
- * # -> ###
- * ## -> ####
- */
-function validateHeadingHierarchy(headings, file) {
-    let hasErrors = false;
-
-    let previousLevel = 0;
-
-    for (const heading of headings) {
-        if (
-            previousLevel > 0 &&
-            heading.level > previousLevel + 1
-        ) {
-            console.error(
-                `❌ ${file} -> salto gerarchico alla linea ${heading.line} (${previousLevel} -> ${heading.level})`
+        if (current.level > previous.level + 1) {
+            errors.push(
+                `❌ ${relativePath} -> salto gerarchico alla linea ${current.line} (${previous.level} -> ${current.level})`
             );
-
-            hasErrors = true;
-        }
-
-        previousLevel = heading.level;
-    }
-
-    return hasErrors;
-}
-
-/**
- * Verifica duplicati sullo stesso livello.
- */
-function validateDuplicateHeadings(headings, file) {
-    let hasErrors = false;
-
-    const seen = new Set();
-
-    for (const heading of headings) {
-        const key = `${heading.level}|${heading.title}`;
-
-        if (seen.has(key)) {
-            console.error(
-                `❌ ${file} -> heading duplicato "${heading.title}"`
-            );
-
-            hasErrors = true;
-        } else {
-            seen.add(key);
         }
     }
 
-    return hasErrors;
+    return errors;
 }
 
-/**
- * Validazione principale.
- */
+function validateMarkdown(rootDirectory, sectionsByFile = requiredSections) {
+    const errors = [];
+    const files = Object.entries(sectionsByFile);
+
+    for (const [relativePath, required] of files) {
+        errors.push(...validateMarkdownFile(
+            path.join(rootDirectory, relativePath),
+            relativePath,
+            required
+        ));
+    }
+
+    return {
+        errors,
+        validatedFiles: files.length
+    };
+}
+
 function runValidation() {
-    let globalErrors = false;
+    const rootDirectory = path.resolve(__dirname, "..");
+    const result = validateMarkdown(rootDirectory);
 
-    for (const [file, sections] of Object.entries(requiredSections)) {
-        let fileHasErrors = false;
-
-        if (!fs.existsSync(file)) {
-            console.error(
-                `❌ File mancante: ${file}`
-            );
-
-            globalErrors = true;
-            continue;
-        }
-
-        const content = fs.readFileSync(
-            file,
-            "utf8"
-        );
-
-        if (!content.trim()) {
-            console.error(
-                `❌ File vuoto: ${file}`
-            );
-
-            globalErrors = true;
-            continue;
-        }
-
-        const headings = extractHeadings(content);
-
-        if (headings.length === 0) {
-            console.error(
-                `❌ ${file} -> nessun heading markdown trovato`
-            );
-
-            fileHasErrors = true;
-        }
-
-        fileHasErrors =
-            validateRequiredSections(
-                content,
-                file,
-                sections
-            ) || fileHasErrors;
-
-        fileHasErrors =
-            validateEmptyHeadings(
-                headings,
-                file
-            ) || fileHasErrors;
-
-        fileHasErrors =
-            validateHeadingHierarchy(
-                headings,
-                file
-            ) || fileHasErrors;
-
-        if (fileHasErrors) {
-            globalErrors = true;
-        } else {
-            console.log(
-                `✅ ${file}`
-            );
-        }
+    if (result.errors.length > 0) {
+        result.errors.forEach(error => console.error(error));
+        console.error("\n❌ Markdown validation FAILED");
+        process.exitCode = 1;
+        return;
     }
 
-    if (globalErrors) {
-        console.error(
-            "\n❌ Markdown validation FAILED"
-        );
-
-        process.exit(1);
+    for (const file of Object.keys(requiredSections)) {
+        console.log(`✅ ${file}`);
     }
 
-    console.log(
-        "\n✅ Markdown validation PASSED"
-    );
+    console.log("\n✅ Markdown validation PASSED");
 }
 
-/**
- * Entry point
- */
-runValidation();
+if (require.main === module) {
+    runValidation();
+}
+
+module.exports = {
+    extractHeadings,
+    validateMarkdown,
+    validateMarkdownFile
+};
