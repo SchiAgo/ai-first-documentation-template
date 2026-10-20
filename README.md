@@ -87,3 +87,17 @@ Include:
 - lifecycle management
 - traceability
 - AI collaboration rules
+
+## Automated Validation
+
+Il repository utilizza controlli di qualità automatizzati.
+
+Ogni pull request deve superare:
+
+- Validazione Markdown
+- Validazione ID
+- Validazione ADR
+- Validazione matrice
+- Rilevamento di elementi orfani
+
+La validazione è imposta tramite GitHub Actions.

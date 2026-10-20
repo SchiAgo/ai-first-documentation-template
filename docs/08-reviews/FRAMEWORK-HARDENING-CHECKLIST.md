@@ -40,7 +40,17 @@
 - [x] Markdown Validation
 - [x] ID Validation
 - [x] ADR Validation
-- [ ] Traceability Validation
+- [x] Traceability Validation
+
+---
+
+## Workflow Hardening
+
+- [ ] GitHub Action aggiornata
+- [ ] Validator integrati
+- [ ] Test automatici eseguiti
+- [ ] Build bloccante
+- [ ] Branch Protection configurata
 
 ---
 
