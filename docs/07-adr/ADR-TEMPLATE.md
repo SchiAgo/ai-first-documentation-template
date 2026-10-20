@@ -2,6 +2,10 @@
 
 ## Informazioni Generali
 
+ID:
+
+ADR-XXX
+
 Titolo:
 
 Versione:

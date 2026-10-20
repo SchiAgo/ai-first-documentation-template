@@ -37,9 +37,9 @@
 
 ## Validation
 
-- [ ] Markdown Validation
-- [ ] ID Validation
-- [ ] ADR Validation
+- [x] Markdown Validation
+- [x] ID Validation
+- [x] ADR Validation
 - [ ] Traceability Validation
 
 ---

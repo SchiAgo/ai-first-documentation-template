@@ -171,6 +171,84 @@ TASK-XXX
 
 ---
 
+## TASK-002
+
+Descrizione:
+
+Epic:
+
+Priorità:
+
+Stato:
+
+Stima:
+
+Assegnatario:
+
+---
+
+### Definition of Ready
+
+- requisito definito
+- flow definito
+- dipendenze identificate
+
+---
+
+### Definition of Done
+
+- implementazione completata
+- test completati
+- documentazione aggiornata
+- review approvata
+
+---
+
+### Dipendenze
+
+TASK-XXX
+
+---
+
+## TASK-003
+
+Descrizione:
+
+Epic:
+
+Priorità:
+
+Stato:
+
+Stima:
+
+Assegnatario:
+
+---
+
+### Definition of Ready
+
+- requisito definito
+- flow definito
+- dipendenze identificate
+
+---
+
+### Definition of Done
+
+- implementazione completata
+- test completati
+- documentazione aggiornata
+- review approvata
+
+---
+
+### Dipendenze
+
+TASK-XXX
+
+---
+
 ## Piano Testing
 
 Unit Test

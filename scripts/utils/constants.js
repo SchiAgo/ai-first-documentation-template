@@ -19,5 +19,5 @@ module.exports = {
         "UI",
         "ADR"
     ],
-    ID_PLACEHOLDERS: ["ID", "XXX", "YYY"]
+    ID_PLACEHOLDERS: ["ID", "XXX", "YYY", "NNN"]
 };

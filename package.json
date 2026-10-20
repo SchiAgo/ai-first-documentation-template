@@ -14,8 +14,10 @@
     "validate:ids": "node scripts/validate-ids.js",
     "test:validate-ids": "node --test scripts/validate-ids.test.js",
     "validate:adr": "node scripts/validate-adr.js",
-    "validate:traceability": "node scripts/validate-traceability.js",
-    "validate": "npm run validate:docs && npm run validate:markdown && npm run validate:ids && npm run validate:adr && npm run validate:traceability"
+    "test:validate-adr": "node --test scripts/validate-adr.test.js",
+    "validate:matrix": "node scripts/validate-matrix.js",
+    "test:validate-matrix": "node --test scripts/validate-matrix.test.js",
+    "validate": "npm run validate:docs && npm run validate:markdown && npm run validate:ids && npm run validate:adr && npm run validate:matrix"
   },
   "repository": {
     "type": "git",
